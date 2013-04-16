@@ -45,23 +45,23 @@ if (index > 0)browserInfo.version = tmp.substring(0, index);
 } else {browserInfo.ETC = true;browserInfo.name = navigator.appName;browserInfo.version = 'NOT_OK';}
 } catch (err) {alert(location.href + '\n\n' + e + '\n[ERROR getBrowserInfo]');}
 return browserInfo;};
-function isNavigator4OpenBank(platform, browser) {
+function isNavigator4OpenBank(platform, browser) {var _version = parseFloat(browser.version);
 if (platform.Windows) {
-if (browser.MSIE) {if (browser.version >= 6) {return false;}
-} else if (browser.Firefox) {if (browser.version >= 3.5) {return true;}
-} else if (browser.Chrome) {if (browser.version >= 5) {return true;}
-} else if (browser.Safari) {if (browser.version >= 4) {return true;}
-} else if (browser.Opera) {if (browser.version >= 9.8) {return true;}}
-} else if (platform.Mac) {if (browser.Safari) {if (browser.version >= 4) {return true;}
-} else if (browser.Firefox) {if (browser.version >= 3.5) {return true;}
-} else if (browser.Chrome) {if (browser.version >= 5) {return true;}
-} else if (browser.Opera) {if (browser.version >= 9.8) {return true;}}
+if (browser.MSIE) {if (_version >= 6) {return false;}
+} else if (browser.Firefox) {if (_version >= 3.5) {return true;}
+} else if (browser.Chrome) {if (_version >= 5) {return true;}
+} else if (browser.Safari) {if (_version >= 4) {return true;}
+} else if (browser.Opera) {if (_version >= 9.8) {return true;}}
+} else if (platform.Mac) {if (browser.Safari) {if (_version >= 4) {return true;}
+} else if (browser.Firefox) {if (_version >= 3.5) {return true;}
+} else if (browser.Chrome) {if (_version >= 5) {return true;}
+} else if (browser.Opera) {if (_version >= 9.8) {return true;}}
 } else if (platform.Linux) {return true;} else {return false;}return false;}
 function clientCheck() {var _platform = getPlatformInfo();
 if (_platform.Mobile) {
-window.alert("고객님이 접속하시는 환경에서는 하나은행 인터넷뱅킹을 이용하실 수 없습니다.\n하나N Bank를 이용해 주시기 바랍니다.")
+window.alert("고객님이 접속하시는 환경에서는\n하나은행 인터넷뱅킹을 이용하실 수 없습니다.\n\n하나N Bank를 이용해 주시기 바랍니다.")
 } else if (isNavigator4OpenBank(_platform, getBrowserInfo())) {
-if (window.confirm("고객님이 접속하시는 브라우저에서 인터넷뱅킹을 사용하시려면\n하나은행 오픈뱅킹을 이용하셔야 합니다.\n\n확인을 누르시면 오픈뱅킹으로 이동합니다.")) {
+if (window.confirm("고객님이 접속하시는 브라우저에서\n인터넷뱅킹을 사용하시려면\n하나은행 오픈뱅킹을 이용하셔야 합니다.\n\n확인을 누르시면 오픈뱅킹으로 이동합니다.")) {
 window.location.replace("https://open.hanabank.com");
 }} else {window.location.replace("/common/login.do");}}
 </script>
