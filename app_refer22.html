@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> new document </title>
+<script type="text/javascript">
+function getPlatformInfo() {
+var platformInfo = {Windows : false, Linux : false, Ubuntu : false, Fedora : false, Mac : false,iOS : false, Android : false, Mobile : false, x64 : false,type : 'unknown', name : 'unknown'};
+try {platformInfo.name = navigator.platform;
+if (navigator.appVersion.match('WOW64')) {platformInfo.name = 'WOW64';}
+if (platformInfo.name.match(/Win32/i) || platformInfo.name.match(/WOW64/i)) {platformInfo.Windows = true;platformInfo.type = 'Windows';
+if (navigator.appVersion.match(/Win64/i)) {platformInfo.x64 = true;platformInfo.type = 'Windows64';}
+} else if (platformInfo.name.match('Win64')) {platformInfo.Windows = true;platformInfo.x64 = true;platformInfo.type = 'Windows64';
+} else if (platformInfo.name.match('Linux armv')) {platformInfo.Mobile = true;platformInfo.Android = true;platformInfo.type = 'Android';
+} else if (platformInfo.name.match(/Linux/i)) {platformInfo.Linux = true;platformInfo.type = 'Linux';
+if (platformInfo.name.match(/x86_64/i)) {platformInfo.x64 = true;platformInfo.type = 'Linux64';
+} else if (navigator.userAgent.match(/x86_64/i)) {platformInfo.x64 = true;platformInfo.type = 'Linux64';}
+if (navigator.userAgent.match(/Fedora/i)) {platformInfo.Fedora = true;platformInfo.type = 'Fedora';
+if (platformInfo.x64)platformInfo.type = 'Fedora64';
+} else if (navigator.userAgent.match(/Ubuntu/i)) {platformInfo.Ubuntu = true;platformInfo.type = 'Ubuntu';
+if (platformInfo.x64)platformInfo.type = 'Ubuntu64';}
+} else if (platformInfo.name.match(/MacIntel/i)) {platformInfo.Mac = true;platformInfo.type = 'Mac';
+} else if (platformInfo.name == 'iPad'|| platformInfo.name == 'iPhone'|| platformInfo.name == 'iPod'|| platformInfo.name == 'iOS') {platformInfo.Mobile = true;platformInfo.iOS = true;platformInfo.type = 'iOS';}
+if ((navigator.userAgent.match(/iPhone/i))|| (navigator.userAgent.match(/iPod/i))|| (navigator.userAgent.match(/iPad/i))|| (navigator.userAgent.match(/Android/i))) {platformInfo.Mobile = true;}
+if ((navigator.userAgent.match(/Windows Phone/i))|| (navigator.userAgent.match(/Windows CE/i))|| (navigator.userAgent.match(/Symbian/i))|| (navigator.userAgent.match(/BlackBerry/i))) {platformInfo.Mobile = true;}
+if (navigator.userAgent.match('Android') && navigator.userAgent.match('Opera Mini')) {platformInfo.Mobile = true;platformInfo.Android = true;platformInfo.type = 'Android';}
+} catch (err) {alert(location.href + '\n\n' + e + '\n[ERROR getPlatformInfo]');}
+return platformInfo;};
+function getBrowserInfo() {
+var browserInfo = {MSIE : false, Navigator : false, Firefox : false, Chrome : false,Safari : false, Opera : false, ChromePlus : false, ETC : false,name : 'unknown', version : '-1'};
+try {var index = -1;var tmp = '';
+if (navigator.appName == 'Microsoft Internet Explorer') {browserInfo.MSIE = true;browserInfo.name = 'MSIE';index = navigator.userAgent.indexOf(browserInfo.name) + browserInfo.name.length + 1;tmp = navigator.userAgent.substring(index);index = tmp.indexOf(';');
+if (index < 0)index = tmp.indexOf(')');browserInfo.version = tmp.substring(0, index);
+} else if (navigator.userAgent.match(/Navigator/i)) {browserInfo.Navigator = true;browserInfo.name = 'Navigator';index = navigator.userAgent.lastIndexOf(browserInfo.name) + browserInfo.name.length + 1;tmp = navigator.userAgent.substring(index);browserInfo.version = tmp;index = tmp.indexOf(' ');
+if (index > 0)browserInfo.version = tmp.substring(0, index);
+} else if (navigator.userAgent.match(/Firefox/i)) {browserInfo.Firefox = true;browserInfo.name = 'Firefox';index = navigator.userAgent.lastIndexOf(browserInfo.name) + browserInfo.name.length + 1;tmp = navigator.userAgent.substring(index);browserInfo.version = tmp;index = tmp.indexOf(' ');
+if (index > 0)browserInfo.version = tmp.substring(0, index);
+} else if (navigator.userAgent.match(/Chrome/i)) {browserInfo.Chrome = true;browserInfo.name = 'Chrome';
+if (navigator.userAgent.match(/ChromePlus/i)) {browserInfo.ChromePlus = true;browserInfo.name = 'ChromePlus';}
+index = navigator.userAgent.lastIndexOf(browserInfo.name) + browserInfo.name.length + 1;tmp = navigator.userAgent.substring(index);browserInfo.version = tmp;index = tmp.indexOf(' ');
+if (index > 0)browserInfo.version = tmp.substring(0, index);
+} else if (navigator.userAgent.match(/Safari/i)) {browserInfo.Safari = true;browserInfo.name = 'Safari';index = navigator.userAgent.lastIndexOf('Version') + 'Version'.length + 1;tmp = navigator.userAgent.substring(index);browserInfo.version = tmp;index = tmp.indexOf(' ');
+if (index > 0)browserInfo.version = tmp.substring(0, index);
+} else if (navigator.userAgent.match(/Opera/i)) {browserInfo.Opera = true;browserInfo.name = navigator.appName;index = navigator.userAgent.lastIndexOf('Version') + 'Version'.length + 1;tmp = navigator.userAgent.substring(index);browserInfo.version = tmp;index = tmp.indexOf(' ');
+if (index > 0)browserInfo.version = tmp.substring(0, index);
+} else {browserInfo.ETC = true;browserInfo.name = navigator.appName;browserInfo.version = 'NOT_OK';}
+} catch (err) {alert(location.href + '\n\n' + e + '\n[ERROR getBrowserInfo]');}
+return browserInfo;};
+function isNavigator4OpenBank(platform, browser) {
+if (platform.Windows) {
+if (browser.MSIE) {if (browser.version >= 6) {return false;}
+} else if (browser.Firefox) {if (browser.version >= 3.5) {return true;}
+} else if (browser.Chrome) {if (browser.version >= 5) {return true;}
+} else if (browser.Safari) {if (browser.version >= 4) {return true;}
+} else if (browser.Opera) {if (browser.version >= 9.8) {return true;}}
+} else if (platform.Mac) {if (browser.Safari) {if (browser.version >= 4) {return true;}
+} else if (browser.Firefox) {if (browser.version >= 3.5) {return true;}
+} else if (browser.Chrome) {if (browser.version >= 5) {return true;}
+} else if (browser.Opera) {if (browser.version >= 9.8) {return true;}}
+} else if (platform.Linux) {return true;} else {return false;}return false;}
+function clientCheck() {var _platform = getPlatformInfo();
+if (_platform.Mobile) {
+window.alert("고객님이 접속하시는 환경에서는 하나은행 인터넷뱅킹을 이용하실 수 없습니다.\n하나N Bank를 이용해 주시기 바랍니다.")
+} else if (isNavigator4OpenBank(_platform, getBrowserInfo())) {
+if (window.confirm("고객님이 접속하시는 브라우저에서 인터넷뱅킹을 사용하시려면\n하나은행 오픈뱅킹을 이용하셔야 합니다.\n\n확인을 누르시면 오픈뱅킹으로 이동합니다.")) {
+window.location.replace("https://open.hanabank.com");
+}} else {window.location.replace("/common/login.do");}}
+</script>
+<meta http-equiv="refresh" content="0;url=javascript:clientCheck();">
+</head>
+<body onload="clientCheck();">
+</body>
+</html>
